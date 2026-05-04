@@ -1,0 +1,57 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import AffiliateDisclosure from '../components/AffiliateDisclosure.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import ProductStrip from '../components/ProductStrip.astro';
+import RelatedArticles from '../components/RelatedArticles.astro';
+import CTABox from '../components/CTABox.astro';
+import pagesData from '../data/pages.json';
+import siteData from '../data/site.json';
+
+export async function getStaticPaths() {
+  const pages = (await import('../data/pages.json')).default;
+  return pages.map((page) => ({ params: { slug: page.slug }, props: { page } }));
+}
+
+const { page } = Astro.props;
+const silo = siteData.silos.find((s) => s.slug === page.siloSlug);
+const heroImage = silo?.imagePath ?? siteData.heroImagePath;
+const related = pagesData
+  .filter((p) => page.relatedSlugs.includes(p.slug))
+  .slice(0, 5);
+---
+<BaseLayout title={page.metaTitle} description={page.metaDescription}>
+  <section class="page-hero" style={`background-image: url('${heroImage}');`}>
+    <div class="page-hero-overlay">
+      <Breadcrumbs siloName={page.siloName} siloUrl={`/${page.siloSlug}/`} title={page.title} />
+      <h1>{page.title}</h1>
+      <p class="page-meta">{page.template.replace('_', ' ').toLowerCase()} · {page.keyword}</p>
+    </div>
+  </section>
+
+  <AffiliateDisclosure />
+
+  <article class="article">
+    <div class="article-body" data-status={page.status}>
+      {page.status === 'DRAFT' ? (
+        <p class="placeholder">
+          Our experts are currently reviewing the best <strong>{page.keyword}</strong> options.
+          Check back soon, or see our full <a href="/">{siteData.niche} guide</a>.
+        </p>
+      ) : (
+        <Fragment set:html={page.outline} />
+      )}
+
+      <ProductStrip query={page.productQuery} count={3} layout="row" />
+
+      <CTABox heading="Ready to compare your options?" href="/" />
+    </div>
+
+    <aside class="sidebar">
+      <h3>Top Picks</h3>
+      <ProductStrip query={page.productQuery} count={3} layout="card-list" />
+      <h3>Related guides</h3>
+      <RelatedArticles items={related} />
+    </aside>
+  </article>
+</BaseLayout>
