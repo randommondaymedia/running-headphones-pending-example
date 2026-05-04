@@ -1,0 +1,14 @@
+---
+const { product } = Astro.props;
+const goHref = product?.linkSlug ? `/go/${product.linkSlug}/` : '/';
+---
+<article class="product-card">
+  {product?.imageUrl && <img src={product.imageUrl} alt={product.title} loading="lazy" />}
+  <h3>{product?.title ?? 'Loading product…'}</h3>
+  {product?.price !== undefined && <p class="price">${product.price.toFixed(2)}</p>}
+  {product?.linkSlug && (
+    <a class="amazon-button" href={goHref} rel="nofollow sponsored noopener" target="_blank">
+      View on Amazon
+    </a>
+  )}
+</article>
