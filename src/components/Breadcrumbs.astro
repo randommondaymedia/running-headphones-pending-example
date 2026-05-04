@@ -1,0 +1,10 @@
+---
+const { siloName, siloUrl, title } = Astro.props;
+---
+<nav class="breadcrumbs" aria-label="Breadcrumb">
+  <ol>
+    <li><a href="/">Home</a></li>
+    <li><a href={siloUrl}>{siloName}</a></li>
+    <li aria-current="page">{title}</li>
+  </ol>
+</nav>
