@@ -1,0 +1,17 @@
+---
+import ProductCard from './ProductCard.astro';
+const { query, count = 3, layout = 'row' } = Astro.props;
+// Placeholder products — Product Discovery worker hydrates the real list later.
+// linkSlug is left undefined until the product placement is committed and an
+// AffiliateLink row is created (see content-publisher).
+const placeholders = Array.from({ length: count }, (_, i) => ({
+  id: `placeholder-${i + 1}`,
+  title: `Loading: ${query} pick #${i + 1}`,
+  price: undefined,
+  imageUrl: undefined,
+  linkSlug: undefined,
+}));
+---
+<div class={`product-strip layout-${layout}`} data-query={query}>
+  {placeholders.map((p) => <ProductCard product={p} />)}
+</div>
