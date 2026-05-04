@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://running-headphones-pending.example/sitemap.xml
