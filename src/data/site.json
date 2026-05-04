@@ -1,0 +1,115 @@
+{
+  "name": "running headphones",
+  "domain": "running-headphones-pending.example",
+  "niche": "running headphones",
+  "description": "We test headphones where runners actually use them—on pavement, trails, and treadmills. No affiliate bias. Just honest recommendations that won't fall out mid-stride.",
+  "affiliateDisclosure": "This site contains affiliate links. We may earn a commission at no extra cost to you.",
+  "heroImagePath": "/images/hero.jpg",
+  "silos": [
+    {
+      "slug": "are-headphones-or-earphones-better-for-running",
+      "name": "Are Headphones Or Earphones Better For Running",
+      "keywordTheme": "are headphones or earphones better for running",
+      "description": "Topical silo anchored on \"are headphones or earphones better for running\".",
+      "imagePath": "/images/silo-are-headphones-or-earphones-better-for-running.jpg",
+      "hubUrl": "/are-headphones-or-earphones-better-for-running/",
+      "spokeCount": 0
+    },
+    {
+      "slug": "best-headphones-for-running-over-ear",
+      "name": "Best Headphones For Running Over Ear",
+      "keywordTheme": "best headphones for running over ear",
+      "description": "Topical silo anchored on \"best headphones for running over ear\".",
+      "imagePath": "/images/silo-best-headphones-for-running-over-ear.jpg",
+      "hubUrl": "/best-headphones-for-running-over-ear/",
+      "spokeCount": 4
+    },
+    {
+      "slug": "headphones-best-for-running",
+      "name": "Headphones Best For Running",
+      "keywordTheme": "headphones best for running",
+      "description": "Topical silo anchored on \"headphones best for running\".",
+      "imagePath": "/images/silo-headphones-best-for-running.jpg",
+      "hubUrl": "/headphones-best-for-running/",
+      "spokeCount": 59
+    },
+    {
+      "slug": "running-with-headphones-vs-earbuds-reddit",
+      "name": "Running With Headphones Vs Earbuds Reddit",
+      "keywordTheme": "running with headphones vs earbuds reddit",
+      "description": "Topical silo anchored on \"running with headphones vs earbuds reddit\".",
+      "imagePath": "/images/silo-running-with-headphones-vs-earbuds-reddit.jpg",
+      "hubUrl": "/running-with-headphones-vs-earbuds-reddit/",
+      "spokeCount": 1
+    },
+    {
+      "slug": "top-rated-wireless-headphones-for-running",
+      "name": "Top Rated Wireless Headphones For Running",
+      "keywordTheme": "top rated wireless headphones for running",
+      "description": "Topical silo anchored on \"top rated wireless headphones for running\".",
+      "imagePath": "/images/silo-top-rated-wireless-headphones-for-running.jpg",
+      "hubUrl": "/top-rated-wireless-headphones-for-running/",
+      "spokeCount": 1
+    }
+  ],
+  "brand": {
+    "tagline": "Running Headphone Authority Since 2020",
+    "hubLabel": "Guides, How-Tos & Comparisons",
+    "hubTitle": "Everything You Need to Know",
+    "editorRole": "Running Gear Editor",
+    "trustStats": [
+      {
+        "label": "Editor-Curated",
+        "value": "100%"
+      },
+      {
+        "label": "No Sponsored Posts",
+        "value": "Independent"
+      },
+      {
+        "label": "Affiliate Disclosed",
+        "value": "All"
+      },
+      {
+        "label": "Updated Rankings",
+        "value": "Weekly"
+      }
+    ],
+    "heroEyebrow": "2025 Expert Rankings · Tested in Real Conditions",
+    "paletteName": "navy-brass",
+    "editorByline": "By Marcus Rivera",
+    "newsletterCta": "Subscribe",
+    "heroHeadlineEm": "Honestly Tested",
+    "heroPrimaryCta": "See Our Top Picks →",
+    "newsletterDesc": "Get fresh test results, buyer's guides, and real-world insights delivered to your inbox. No hype, just honest gear reviews for runners.",
+    "quickNavLabels": [
+      "Best Under $100",
+      "Wireless Earbuds",
+      "Over-Ear Headphones",
+      "Best for Trail Running",
+      "Water-Resistant",
+      "Budget Picks",
+      "Buying Guide"
+    ],
+    "bestsellerLabel": "Also Worth Considering",
+    "bestsellerTitle": "More Top-Rated Running Headphones",
+    "comparisonTitle": "All Five Headphones Side by Side",
+    "guideBannerDesc": "Find the right fit for your pace and budget. We break down wireless earbuds vs over-ear options, battery life, and comfort for long runs.",
+    "heroDescription": "We test headphones where runners actually use them—on pavement, trails, and treadmills. No affiliate bias. Just honest recommendations that won't fall out mid-stride.",
+    "newsletterTitle": "New Running Headphone Reviews, Every Week",
+    "guideBannerLabel": "Complete 2025 Buyer's Guide",
+    "guideBannerTitle": "Best Running Headphones Under $150",
+    "heroHeadlineLead": "The Best Running Headphones,",
+    "heroSecondaryCta": "How We Test",
+    "productGridLabel": "Editor's Choice · January 2025",
+    "productGridTitle": "Our Top-Ranked Running Headphones Right Now",
+    "footerDescription": "We test running headphones the way runners actually use them—on pavement, trails, and tracks. Our goal is simple: help you find headphones that stay put, sound good, and don't distract from your run.",
+    "newsletterEyebrow": "Stay in the Loop",
+    "productNounPlural": "headphones",
+    "announcementBarText": "Updated January 2025 · Free buying guides for every runner",
+    "productNounSingular": "headphone"
+  },
+  "paletteName": "navy-brass",
+  "generatedAt": "2026-05-04T17:49:51.287Z",
+  "factoryVersion": "0.1.0"
+}
