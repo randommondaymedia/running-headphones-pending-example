@@ -1,0 +1,163 @@
+---
+import siteData from '../data/site.json';
+import '../styles/globals.css';
+const { title, description } = Astro.props;
+const brand = siteData.brand;
+const silos = siteData.silos;
+const brandFirst = siteData.name.split(' ')[0];
+const brandRest = siteData.name.split(' ').slice(1).join(' ');
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content="@affiliate-os/site-factory" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div id="sb"></div>
+
+    <!-- ANNOUNCEMENT BAR -->
+    <div class="ann">{brand.announcementBarText}</div>
+
+    <!-- HEADER -->
+    <header class="hdr">
+      <div class="hdr-inner">
+        <div class="logo">
+          <a class="logo-mark" href="/">{brandFirst}<span>{brandRest}</span></a>
+          <span class="logo-sub">{brand.tagline}</span>
+        </div>
+        <nav>
+          <ul class="nav">
+            {silos.slice(0, 5).map((silo) => (
+              <li><a href={silo.hubUrl}>{silo.name}</a></li>
+            ))}
+          </ul>
+        </nav>
+        <div class="hdr-actions">
+          <div class="search-wrap"><input type="text" placeholder={`Search ${brand.productNounPlural}…`} /></div>
+          <a class="btn-header" href="#editors-picks" style="text-decoration:none">Top Picks</a>
+        </div>
+      </div>
+    </header>
+
+    <main><slot /></main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div class="ft-inner">
+        <div class="ft-top">
+          <div>
+            <div class="ft-logo">{brandFirst}<span>{brandRest}</span></div>
+            <p class="ft-desc">{brand.footerDescription}</p>
+          </div>
+          <div>
+            <div class="ft-col-title">Categories</div>
+            <ul class="ft-list">
+              {silos.slice(0, 5).map((silo) => (
+                <li><a href={silo.hubUrl}>{silo.name}</a></li>
+              ))}
+            </ul>
+          </div>
+          <div>
+            <div class="ft-col-title">About</div>
+            <ul class="ft-list">
+              <li><a href="#how-we-test">How We Test</a></li>
+              <li><a href="#editors-picks">Editor's Picks</a></li>
+              <li><a href="#hub">All Guides</a></li>
+            </ul>
+          </div>
+          <div>
+            <div class="ft-col-title">Editor</div>
+            <ul class="ft-list">
+              <li>{brand.editorByline}</li>
+              <li>{brand.editorRole}</li>
+            </ul>
+          </div>
+        </div>
+        <div class="ft-bottom">
+          <div class="ft-disc">
+            <strong>Affiliate Disclosure:</strong> This site participates in the Amazon Services
+            LLC Associates Program and earns commissions on qualifying purchases at no additional
+            cost to you. Editorial opinions and rankings are never influenced by affiliate
+            relationships.
+          </div>
+          <div>© {new Date().getFullYear()} {siteData.name}</div>
+        </div>
+      </div>
+    </footer>
+
+    <script is:inline>
+      // Scroll progress bar
+      window.addEventListener('scroll', function () {
+        var sb = document.getElementById('sb');
+        if (!sb) return;
+        var max = document.documentElement.scrollHeight - window.innerHeight;
+        sb.style.width = (max > 0 ? (window.scrollY / max) * 100 : 0) + '%';
+      }, { passive: true });
+
+      // Category carousel
+      (function () {
+        var track = document.getElementById('catTrack');
+        var dots = document.querySelectorAll('#catDots .dot');
+        var prev = document.getElementById('catPrev');
+        var next = document.getElementById('catNext');
+        if (!track || !dots.length) return;
+        var pos = 0;
+        var max = dots.length - 1;
+        function cw() {
+          var card = track.querySelector('.cat-card');
+          return (card ? card.offsetWidth : 190) + 18;
+        }
+        function sync() {
+          for (var i = 0; i < dots.length; i++) {
+            dots[i].classList.toggle('on', i === pos);
+          }
+        }
+        if (next) next.addEventListener('click', function () {
+          pos = Math.min(pos + 1, max);
+          track.scrollTo({ left: pos * cw(), behavior: 'smooth' });
+          sync();
+        });
+        if (prev) prev.addEventListener('click', function () {
+          pos = Math.max(pos - 1, 0);
+          track.scrollTo({ left: pos * cw(), behavior: 'smooth' });
+          sync();
+        });
+        track.addEventListener('scroll', function () {
+          var p = Math.round(track.scrollLeft / cw());
+          if (p !== pos) { pos = p; sync(); }
+        }, { passive: true });
+        for (var i = 0; i < dots.length; i++) {
+          (function (idx) {
+            dots[idx].addEventListener('click', function () {
+              pos = idx;
+              track.scrollTo({ left: idx * cw(), behavior: 'smooth' });
+              sync();
+            });
+          })(i);
+        }
+      })();
+
+      // Wishlist toggle (heart on product cards)
+      var wishlistButtons = document.querySelectorAll('.p-wish');
+      for (var i = 0; i < wishlistButtons.length; i++) {
+        wishlistButtons[i].addEventListener('click', function (e) {
+          var btn = e.currentTarget;
+          var on = btn.textContent.trim() === '♥';
+          btn.textContent = on ? '♡' : '♥';
+          btn.style.color = on ? '' : 'var(--red)';
+        });
+      }
+    </script>
+  </body>
+</html>
