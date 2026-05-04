@@ -1,0 +1,262 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import siteData from '../data/site.json';
+
+const silos = siteData.silos;
+const brand = siteData.brand;
+const productGridPlaceholders = Array.from({ length: 4 }, (_, i) => i);
+const bestsellerPlaceholders = Array.from({ length: 6 }, (_, i) => i);
+const guidePicksPlaceholders = Array.from({ length: 4 }, (_, i) => i);
+const QUICK_NAV_ICONS = ['⚡', '▣', '☆', '⏰', '✨', '⚖', '⚒', '☰'];
+---
+<BaseLayout title={siteData.name} description={brand.heroDescription}>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg" style={`background-image: url('${siteData.heroImagePath}');`}></div>
+    <div class="hero-ov"></div>
+    <div class="hero-ov2"></div>
+    <div class="hero-content">
+      <div class="eyebrow">
+        <span class="eyebrow-line"></span>
+        <span class="eyebrow-text">{brand.heroEyebrow}</span>
+      </div>
+      <h1 class="hero-h1">{brand.heroHeadlineLead}<br /><em>{brand.heroHeadlineEm}</em></h1>
+      <p class="hero-desc">{brand.heroDescription}</p>
+      <div class="hero-btns">
+        <a href="#editors-picks" class="btn-hero">{brand.heroPrimaryCta}</a>
+        <a href="#how-we-test" class="btn-ghost">{brand.heroSecondaryCta}</a>
+      </div>
+      <div class="hero-trust">
+        {brand.trustStats.map((stat, i) => (
+          <>
+            <div class="ht-item">
+              <div class="ht-num">{stat.value}</div>
+              <div class="ht-label">{stat.label}</div>
+            </div>
+            {i < brand.trustStats.length - 1 && <div class="ht-sep"></div>}
+          </>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- QUICK-NAV STRIP -->
+  <div class="qnav">
+    <div class="qnav-inner">
+      {brand.quickNavLabels.map((label, i) => (
+        <div class={`qn${i === 0 ? ' hot' : ''}`}>
+          <span class="qn-icon">{QUICK_NAV_ICONS[i % QUICK_NAV_ICONS.length]}</span>{label}
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <!-- CATEGORY CAROUSEL -->
+  <section class="cat-section">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <div class="sec-label">Browse by Category</div>
+          <h2 class="sec-title">Find Your Perfect {brand.productNounSingular}</h2>
+        </div>
+        <a href="#hub" class="sec-link">All categories →</a>
+      </div>
+    </div>
+    <div class="carousel-outer">
+      <button class="carousel-btn" id="catPrev">‹</button>
+      <div class="carousel-track" id="catTrack">
+        {silos.map((silo) => (
+          <a href={silo.hubUrl} class="cat-card">
+            <div class="cat-card-img">
+              <img src={silo.imagePath} alt={silo.name} loading="lazy" />
+            </div>
+            <div class="cat-card-body">
+              <div class="cat-card-name">{silo.name}</div>
+              <div class="cat-card-count">{silo.spokeCount} Reviewed</div>
+            </div>
+            <span class="cat-card-cta">Shop →</span>
+          </a>
+        ))}
+      </div>
+      <button class="carousel-btn" id="catNext">›</button>
+    </div>
+    <div class="dots" id="catDots">
+      {silos.map((_, i) => (
+        <div class={`dot${i === 0 ? ' on' : ''}`}></div>
+      ))}
+    </div>
+  </section>
+
+  <!-- EDITOR'S TOP PICKS — 4-column product grid placeholder -->
+  <section class="products-bg" id="editors-picks">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <div class="sec-label">{brand.productGridLabel}</div>
+          <h2 class="sec-title">{brand.productGridTitle}</h2>
+        </div>
+        <a href="#hub" class="sec-link">See all reviews →</a>
+      </div>
+      <div class="p-grid">
+        {productGridPlaceholders.map((i) => (
+          <article class="p-card">
+            <div class="p-img-wrap">
+              <div class="p-badge pb-1">#{i + 1} Pick</div>
+            </div>
+            <div class="p-body">
+              <div class="p-brand">Loading…</div>
+              <div class="p-name">Top {brand.productNounSingular} pick #{i + 1}</div>
+              <div class="p-stars"><span class="stars-gold">★★★★★</span><span class="rcount">—</span></div>
+              <ul class="p-feats">
+                <li>Editor-tested for {siteData.niche}</li>
+                <li>Independent ranking</li>
+                <li>Updated weekly</li>
+                <li>Affiliate-disclosed</li>
+              </ul>
+              <div class="p-foot">
+                <div><div class="p-price">—</div></div>
+                <a class="btn-buy" href="/" rel="nofollow sponsored noopener">Amazon →</a>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPARISON TABLE placeholder -->
+  <section class="comp-section">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <div class="sec-label">Quick Comparison</div>
+          <h2 class="sec-title">{brand.comparisonTitle}</h2>
+        </div>
+      </div>
+      <div class="comp-table-wrap">
+        <table class="comp-table">
+          <thead>
+            <tr>
+              <th>{brand.productNounSingular.charAt(0).toUpperCase() + brand.productNounSingular.slice(1)}</th>
+              <th>Price</th><th>Rating</th><th>Best For</th><th>Buy</th>
+            </tr>
+          </thead>
+          <tbody>
+            {productGridPlaceholders.map((i) => (
+              <tr class={i === 0 ? 'winner' : ''}>
+                <td>Top {brand.productNounSingular} #{i + 1}{i === 0 && <span class="comp-badge">★ #1</span>}</td>
+                <td>—</td><td>★★★★★</td><td>—</td>
+                <td><a class="btn-buy" style="padding:7px 12px;font-size:.7rem" href="/" rel="nofollow sponsored noopener">Amazon →</a></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUST STRIP -->
+  <div class="trust-strip" id="how-we-test">
+    <div class="trust-inner">
+      {brand.trustStats.map((stat) => (
+        <div class="t-block">
+          <div class="t-num">{stat.value}</div>
+          <div class="t-label">{stat.label}</div>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <!-- BESTSELLER DARK CAROUSEL placeholder -->
+  <section class="hot-section">
+    <div class="wrap">
+      <div class="hot-head">
+        <div>
+          <div class="hot-label">{brand.bestsellerLabel}</div>
+          <h2 class="hot-title">{brand.bestsellerTitle}</h2>
+        </div>
+        <a href="#hub" class="hot-link">See all →</a>
+      </div>
+      <div class="hot-track">
+        {bestsellerPlaceholders.map((i) => (
+          <div class="hot-card">
+            <div class="hot-img"></div>
+            <div class="hot-body">
+              <div class="hot-brand">Loading…</div>
+              <div class="hot-name">{brand.productNounSingular} pick #{i + 1}</div>
+              <div class="hot-price">—</div>
+              <a href="/" class="hot-btn" rel="nofollow sponsored noopener">Check on Amazon →</a>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURED GUIDE BANNER -->
+  <div class="guide-banner">
+    <div class="guide-inner">
+      <div>
+        <div class="guide-label">{brand.guideBannerLabel}</div>
+        <h2 class="guide-title">{brand.guideBannerTitle}</h2>
+        <p class="guide-desc">{brand.guideBannerDesc}</p>
+        <a href="#editors-picks" class="btn-hero" style="background:var(--leaf);color:var(--white);text-decoration:none">Read the Full Guide →</a>
+      </div>
+      <div class="guide-picks">
+        {guidePicksPlaceholders.map((i) => (
+          <div class="gp">
+            <span class="gp-n">#{i + 1}</span>
+            <div class="gp-info">
+              <div class="gp-name">Top {brand.productNounSingular} pick #{i + 1}</div>
+              <div class="gp-tag">Editor-curated · Independent</div>
+            </div>
+            <span class="gp-price">—</span>
+            <span class="gp-arr">›</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTENT HUB GRID -->
+  <section class="hub-section" id="hub">
+    <div style="max-width:1320px;margin:0 auto;padding:0 32px">
+      <div class="sec-head">
+        <div>
+          <div class="sec-label">{brand.hubLabel}</div>
+          <h2 class="sec-title">{brand.hubTitle}</h2>
+        </div>
+        <a href="#hub" class="sec-link">All guides →</a>
+      </div>
+      <div class="hub-grid">
+        {silos.map((silo) => (
+          <a href={silo.hubUrl} class="hub-card" style="text-decoration:none;color:inherit">
+            <div class="hub-type">{silo.spokeCount} guides</div>
+            <div class="hub-title">{silo.name}</div>
+            <div class="hub-desc">{silo.description}</div>
+            <div class="hub-cta">Read guides →</div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <div class="nl-section">
+    <div class="nl-inner">
+      <div class="nl-label">{brand.newsletterEyebrow}</div>
+      <h2 class="nl-title">{brand.newsletterTitle}</h2>
+      <p class="nl-desc">{brand.newsletterDesc}</p>
+      <form class="nl-form" action="/api/subscribe" method="post">
+        <label style="flex:1;display:flex">
+          <span class="visually-hidden" style="position:absolute;left:-9999px">Email address</span>
+          <input class="nl-input" type="email" name="email" required placeholder="your@email.com" />
+        </label>
+        <button class="nl-submit" type="submit">{brand.newsletterCta}</button>
+      </form>
+      <div class="nl-note">No spam, ever. Unsubscribe anytime.</div>
+    </div>
+  </div>
+
+</BaseLayout>
